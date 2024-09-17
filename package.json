@@ -5,13 +5,12 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start1": "node script.js",
-    "start2": "npm run start1",
-    "start3": "npm run start2 && npm run start1"
+    "start": "node script.js"
   },
   "author": "Maria",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.21.0",
     "moment": "^2.30.1"
   }
 }

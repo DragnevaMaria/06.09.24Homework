@@ -1,21 +1,22 @@
-// npm run start1
+// npm run start
 
 const moment = require("moment")
+const express = require('express')
+
+const app = express()
+const PORT = 8000
+const HOST = 'localhost'
 
 function getCurrentDay(){
-    console.log(moment().format('dddd'))
-}
-function getCurrentMonth(){
-    console.log(moment().format('MMMM'))
-}
-function getCurrentYear(){
-    console.log(moment().format('YYYY'))
+    return moment().format('MMMM Do YYYY, h:mm:ss a');
 }
 
-function runCallbackFunc(callback, callbackArgs){
-    callback(callbackArgs)
-}
-
-runCallbackFunc(getCurrentDay)
-runCallbackFunc(getCurrentMonth)
-runCallbackFunc(getCurrentYear)
+app.get('/date', (req, res) => {
+    console.log("someone visited the page")
+    const currentDate = getCurrentDay()
+    console.log(currentDate)
+    res.send(`${currentDate}`)
+})
+app.listen(PORT, HOST, () =>{
+    console.log(`Server is running at http://${HOST}:${PORT}`);
+})
