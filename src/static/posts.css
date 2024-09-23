@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    height: 100%; 
+    padding: 0px;
+    margin: 0px;
+}
+
+
+.posts{
+    display: flex;
+    max-width: 600px;
+    max-height: 200px;
+    background-color: pink;
+    border: 1px solid black;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.all{
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
