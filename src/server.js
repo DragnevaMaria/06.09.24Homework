@@ -41,12 +41,10 @@ app.get('/posts', (req, res) => {
     const context = {
         title: 'Document',
         heading: 'Post List:',
-        question: 'расположить все элементы вертикально и горизонтально в центре',
         posts: [{name: 'Post 1', author: 'Author 1'},
             {name: 'Post 2', author: 'Author 2'}]
     };
     res.render('posts', context);
-    
 })
 
 app.get('/user', (req, res) => {
@@ -57,6 +55,38 @@ app.get('/user', (req, res) => {
     res.render('user', context); 
 })
 
+app.get('/comments', (req, res) => {
+    const context = {
+        title: 'Document',
+        heading: 'Conversations in the kitchen at three in the morning',
+        comments: [
+        {
+            title: 'title_0',
+            message: "You know, the more I think about it, the more I realize that life’s beauty lies in its unpredictability – the way opportunities arise when you least expect them, almost as if the universe has a hidden plan that only unfolds when you're not looking.",
+            author: 'Lattea',
+            authorImg: "/static/img/0.png"
+        },
+        {
+            title: 'title_1',
+            message: "That’s such a fascinating perspective. It’s almost like, when we stop obsessing over control and allow ourselves to flow with the current, we open up to experiences that are far richer than anything we could have planned ourselves.",
+            author: 'Fedor',
+            authorImg: "/static/img/1.png"
+        },
+        {
+            title: 'title_2',
+            message: "Exactly! And it makes me wonder if we spend too much time trying to define our path, when, in reality, the best moments often come from embracing the unknown, trusting that everything will eventually align in ways we couldn’t foresee.",
+            author: 'Lattea',
+            authorImg: "/static/img/0.png"
+        },
+        {
+            title: 'title_3',
+            message: "Totally. It’s empowering, really, to acknowledge that not having all the answers can lead to growth. In a way, the unpredictability of life isn’t something to fear, but something to celebrate as part of our journey towards discovering who we truly are.",
+            author: 'Fedor',
+            authorImg: "/static/img/1.png"
+        }]
+    };
+    res.render('comments', context); 
+})
 
 
 app.listen(PORT, HOST, () =>{
