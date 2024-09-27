@@ -30,14 +30,12 @@ app.get('/', (req, res) => {
     // res.sendFile(path.resolve(__dirname, "./templates/index.ejs"))
 })
 
-
 app.get('/date', (req, res) => {
     console.log("someone visited the page")
     const currentDate = getCurrentDay()
     console.log(currentDate)
     res.send(`${currentDate}`)
 })
-
 
 app.get('/posts', (req, res) => {
     const context = {
@@ -50,6 +48,15 @@ app.get('/posts', (req, res) => {
     res.render('posts', context);
     
 })
+
+app.get('/user', (req, res) => {
+    const context = {
+        title: 'Document',
+        heading: 'заголовок',
+    };
+    res.render('user', context); 
+})
+
 
 
 app.listen(PORT, HOST, () =>{
