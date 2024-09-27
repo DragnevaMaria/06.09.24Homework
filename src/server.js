@@ -8,9 +8,7 @@ const app = express()
 const PORT = 8000
 const HOST = 'localhost'
 
-//ставимо движок 
 app.set('view engine', 'ejs')
-//встановлюємо папки з шаблонами для ejs
 app.set('views', path.join(__dirname, 'templates'))
 
 
@@ -27,7 +25,6 @@ app.get('/', (req, res) => {
             pageDescription: 'описание страницы'
      }
     res.render('index', context)
-    // res.sendFile(path.resolve(__dirname, "./templates/index.ejs"))
 })
 
 app.get('/date', (req, res) => {
