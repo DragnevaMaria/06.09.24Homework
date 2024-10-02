@@ -4,6 +4,37 @@ const moment = require("moment")
 const express = require('express')
 const path = require('path')
 
+const posts = [
+    //     heading: 'Post List:',
+    //     posts: [{name: 'Post 1', author: 'Author 1'},
+    //         {name: 'Post 2', author: 'Author 2'}]
+    {
+        // "heading": 'Post List:',
+        "name": 'Post 0',
+        "message": "long message",
+        "time": "02.10.2024  03:14",
+        "author": 'Author 2'
+    },
+    {
+        "name": 'Post 1',
+        "message": "long message",
+        "time": "02.10.2024  03:15",
+        "author": 'Author 1'
+    },
+    {
+        "name": 'Post 0',
+        "message": "long message",
+        "time": "02.10.2024  03:17",
+        "author": 'Author 0'
+    },
+    {
+        "name": 'Post 1',
+        "message": "long message",
+        "time": "02.10.2024  03:19",
+        "author": 'Author 1'
+    },
+]
+
 const app = express()
 const PORT = 8000
 const HOST = 'localhost'
@@ -32,16 +63,6 @@ app.get('/date', (req, res) => {
     const currentDate = getCurrentDay()
     console.log(currentDate)
     res.send(`${currentDate}`)
-})
-
-app.get('/posts', (req, res) => {
-    const context = {
-        title: 'Document',
-        heading: 'Post List:',
-        posts: [{name: 'Post 1', author: 'Author 1'},
-            {name: 'Post 2', author: 'Author 2'}]
-    };
-    res.render('posts', context);
 })
 
 app.get('/user', (req, res) => {
@@ -85,6 +106,45 @@ app.get('/comments', (req, res) => {
     res.render('comments', context); 
 })
 
+
+app.get('/posts', (req, res) => {
+    // const context = {
+    //     title: 'Document',
+    //     heading: 'Post List:',
+    //     posts: [{name: 'Post 1', author: 'Author 1'},
+    //         {name: 'Post 2', author: 'Author 2'}]
+    // };
+    // res.render('posts', context);
+    const context = {
+        title: 'Document',
+        posts: posts
+    }
+    console.log(req.query)
+    const max = req.query.max
+    if (max <= posts.length) {
+        context.posts = posts.slice(0, max)
+    }
+    res.render('posts', context)
+})
+
+
+app.get('/post/:id', (req, res) => {
+    console.log(req.params.id)
+    const id = req.params.id
+    const context = {
+        title: 'Document',
+        post: posts[id-1]
+    }
+    if (id <= posts.length){
+        res.render('post', context)
+    } else{
+        res.send(`
+            <p>такого поста не существует</p>
+            <a href="/posts/">вернуться в posts</a>
+        `);
+        
+    }
+})
 
 app.listen(PORT, HOST, () =>{
     console.log(`Server is running at http://${HOST}:${PORT}`);

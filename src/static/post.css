@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%; 
+    margin: 2%; 
+}
+
+.post{
+    border: 2px solid black;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 20px;
+    background-color: bisque;
+    flex-direction: row;
+}
+
+p{
+    color: rgba(235, 22, 181, 0.781);
+}
