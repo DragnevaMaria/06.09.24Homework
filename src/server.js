@@ -5,11 +5,7 @@ const express = require('express')
 const path = require('path')
 
 const posts = [
-    //     heading: 'Post List:',
-    //     posts: [{name: 'Post 1', author: 'Author 1'},
-    //         {name: 'Post 2', author: 'Author 2'}]
     {
-        // "heading": 'Post List:',
         "name": 'Post 0',
         "message": "long message",
         "time": "02.10.2024  03:14",
@@ -42,7 +38,7 @@ const HOST = 'localhost'
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'templates'))
 
-
+app.use(express.json()) 
 app.use('/static/', express.static(path.join(__dirname, 'static'))) 
 
 function getCurrentDay(){
@@ -70,8 +66,51 @@ app.get('/user', (req, res) => {
         title: 'Document',
         heading: 'заголовок',
     };
-    res.render('user', context); 
+    res.render('user', context);
 })
+
+
+app.get('/posts', (req, res) => {
+    const context = {
+        title: 'Document',
+        posts: posts
+    }
+    console.log(req.query)
+    const max = req.query.max
+    if (max <= posts.length) {
+        context.posts = posts.slice(0, max)
+    }
+    res.render('posts', context)
+})
+
+app.post('/posts/create', (req, res) => {
+    const postsdata = req.body
+    console.log(postsdata)
+    posts.push(postsdata)
+    res.send(`
+        <p>все хорошо</p>
+    `)
+
+});
+
+app.get('/post/:id', (req, res) => {
+    console.log(req.params.id)
+    const id = req.params.id
+    const context = {
+        title: 'Document',
+        post: posts[id-1]
+    }
+    if (id <= posts.length){
+        res.render('post', context)
+    } else{
+        res.send(`
+            <p>такого поста не существует</p>
+            <a href="/posts/">вернуться в posts</a>
+        `)
+    }
+})
+
+
 
 app.get('/comments', (req, res) => {
     const context = {
@@ -104,46 +143,6 @@ app.get('/comments', (req, res) => {
         }]
     };
     res.render('comments', context); 
-})
-
-
-app.get('/posts', (req, res) => {
-    // const context = {
-    //     title: 'Document',
-    //     heading: 'Post List:',
-    //     posts: [{name: 'Post 1', author: 'Author 1'},
-    //         {name: 'Post 2', author: 'Author 2'}]
-    // };
-    // res.render('posts', context);
-    const context = {
-        title: 'Document',
-        posts: posts
-    }
-    console.log(req.query)
-    const max = req.query.max
-    if (max <= posts.length) {
-        context.posts = posts.slice(0, max)
-    }
-    res.render('posts', context)
-})
-
-
-app.get('/post/:id', (req, res) => {
-    console.log(req.params.id)
-    const id = req.params.id
-    const context = {
-        title: 'Document',
-        post: posts[id-1]
-    }
-    if (id <= posts.length){
-        res.render('post', context)
-    } else{
-        res.send(`
-            <p>такого поста не существует</p>
-            <a href="/posts/">вернуться в posts</a>
-        `);
-        
-    }
 })
 
 app.listen(PORT, HOST, () =>{
