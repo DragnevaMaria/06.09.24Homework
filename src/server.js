@@ -3,36 +3,11 @@
 const moment = require("moment")
 const express = require('express')
 const path = require('path')
+const postRouter = require('./routers/postRouter')
 
-const posts = [
-    {
-        "name": 'Post 0',
-        "message": "long message",
-        "time": "02.10.2024  03:14",
-        "author": 'Author 2'
-    },
-    {
-        "name": 'Post 1',
-        "message": "long message",
-        "time": "02.10.2024  03:15",
-        "author": 'Author 1'
-    },
-    {
-        "name": 'Post 0',
-        "message": "long message",
-        "time": "02.10.2024  03:17",
-        "author": 'Author 0'
-    },
-    {
-        "name": 'Post 1',
-        "message": "long message",
-        "time": "02.10.2024  03:19",
-        "author": 'Author 1'
-    },
-]
 
 const app = express()
-const PORT = 8000
+const PORT = 8001
 const HOST = 'localhost'
 
 app.set('view engine', 'ejs')
@@ -40,6 +15,7 @@ app.set('views', path.join(__dirname, 'templates'))
 
 app.use(express.json()) 
 app.use('/static/', express.static(path.join(__dirname, 'static'))) 
+app.use('/post/', postRouter)
 
 function getCurrentDay(){
     return moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -68,49 +44,6 @@ app.get('/user', (req, res) => {
     };
     res.render('user', context);
 })
-
-
-app.get('/posts', (req, res) => {
-    const context = {
-        title: 'Document',
-        posts: posts
-    }
-    console.log(req.query)
-    const max = req.query.max
-    if (max <= posts.length) {
-        context.posts = posts.slice(0, max)
-    }
-    res.render('posts', context)
-})
-
-app.post('/posts/create', (req, res) => {
-    const postsdata = req.body
-    console.log(postsdata)
-    posts.push(postsdata)
-    res.send(`
-        <p>все хорошо</p>
-    `)
-
-});
-
-app.get('/post/:id', (req, res) => {
-    console.log(req.params.id)
-    const id = req.params.id
-    const context = {
-        title: 'Document',
-        post: posts[id-1]
-    }
-    if (id <= posts.length){
-        res.render('post', context)
-    } else{
-        res.send(`
-            <p>такого поста не существует</p>
-            <a href="/posts/">вернуться в posts</a>
-        `)
-    }
-})
-
-
 
 app.get('/comments', (req, res) => {
     const context = {

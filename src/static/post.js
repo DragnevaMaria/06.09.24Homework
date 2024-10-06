@@ -2,7 +2,7 @@ const button = document.querySelector('#button')
 const p = document.querySelector('.p')
 
 button.addEventListener('click', () => {
-    fetch('/posts/create', {
+    fetch('/post/create', {
         method: 'POST',
         body: JSON.stringify({
             name: 'Post 3',
