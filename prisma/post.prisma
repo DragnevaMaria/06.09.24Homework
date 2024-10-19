@@ -1,0 +1,9 @@
+
+model Post {
+  id       Int      @id @default(autoincrement())
+  name     String
+  message  String
+  time     String
+  author   String
+  comments Comment[]  
+}

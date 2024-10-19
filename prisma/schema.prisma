@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
@@ -13,10 +14,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id Int @id @default(autoincrement())
-  name String
-  message String
-  time String
-  author String
-}
+
+// model Post {
+//   id       Int      @id @default(autoincrement())
+//   name     String
+//   message  String
+//   time     String
+//   author   String
+//   comments Comment[] 
+// }
+
+// model Comment {
+//   id       Int     @id @default(autoincrement())
+//   title    String
+//   message  String
+//   postId   Int
+//   post     Post    @relation(fields: [postId], references: [id])
+// }

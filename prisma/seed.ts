@@ -73,12 +73,107 @@ async function findPosts() {
 async function deletePost() {
     const post = await prisma.post.delete({
         where: {
-            id: 11
+            id: 5
         }
     })
     console.log("Удаление одного поста", post)
 }
 
+
+// -----------------------------------------------
+
+// Создание одного коментария
+async function createComment(){
+    const comment = await prisma.comment.create({
+        data: {
+            title: "1 Comment",
+            message: 'long message',
+            imageUrl: "https://ichef.bbci.co.uk/images/ic/640xn/p07ryyyj.jpg.webp",
+            postId: 3
+        }
+    })
+    console.log("Создание одного коментария", comment)
+}
+
+// Создание множества коментариев
+async function createComments(){
+    const comments = await prisma.comment.createMany({
+        data: [
+            {
+                title: "2 Comment",
+                message: 'long message',
+                imageUrl: "https://ichef.bbci.co.uk/images/ic/640xn/p07ryyyj.jpg.webp",
+                postId: 1
+            },
+            {
+                title: "3 Comment",
+                message: 'long message',
+                postId: 2
+            }
+        ]
+    })
+    console.log("Создание множества коментариев", comments)
+}
+
+// Получение коментария по id
+async function findCommentId() {
+    const comment = await prisma.comment.findUnique({
+        where: {
+            id: 1,
+        }
+    })
+    console.log("Получение коментария по id", comment)
+}
+
+
+// Поиск комментария по id с выводом информации о посте
+async function findCommentIdAndInfo() {
+    const found = await prisma.comment.findUnique({
+        where: { 
+            id: 2
+        },
+        include: { 
+            post: true 
+        } 
+    })
+    console.log("Поиск комментария по id с выводом информации о посте",found)
+}
+
+// Поиск поста по id с комментариями
+async function findPostIdWithComments() {
+    const foundPostWithComments = await prisma.post.findUnique({
+      where: { 
+        id: 2
+    },
+      include: { 
+        comments: true 
+    }
+    })
+    console.log("Поиск поста по id с комментариями", foundPostWithComments)
+}
+
+// Обновления данных коментария
+async function updateComment() {
+    const comment = await prisma.comment.update({
+        where: {
+            id: 2
+        },
+        data: {
+            message: 'long message',
+        }
+    })
+    console.log("Обновления данных коментария", comment)
+}
+
+// Удаление одного коментария
+async function deleteComment() {
+    const comment = await prisma.comment.delete({
+        where: {
+            id: 1
+        }
+    })
+    console.log("Удаление одного коментария", comment)
+}
 
 async function seeds() {
     await createPost()
@@ -87,6 +182,13 @@ async function seeds() {
     await findPost()
     await findPosts()
     await deletePost()
+    await createComment()
+    await createComments()
+    await findCommentId()
+    await findCommentIdAndInfo()
+    await findPostIdWithComments()
+    await updateComment()
+    await deleteComment()
 }
 
 seeds().then(() => {
