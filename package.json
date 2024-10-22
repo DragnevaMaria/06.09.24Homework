@@ -10,7 +10,8 @@
     "prisma:seed": "ts-node ./prisma/seed.ts",
     "prisma:format": "prisma format",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "PostApp:postRepository": "ts-node ./src/postApp/postRepository.ts"
   },
   "author": "Maria",
   "license": "ISC",

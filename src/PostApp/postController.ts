@@ -3,7 +3,7 @@
 // с данными постов)
 // const postService = require('../services/postService')
 import { Request, Response } from 'express'
-import postService from '../services/postService'
+import postService from './postService'
 
 // Запрос на получение всех постов
 function getAllPosts(req: Request, res: Response): void{

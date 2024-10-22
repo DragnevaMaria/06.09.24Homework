@@ -49,8 +49,8 @@ async function updatePost() {
     console.log("Обновления данных одного поста", post)
 }
 
-// Получение одного поста
-async function findPost() {
+// Получение одного поста по id
+async function getPostById() {
     const post = await prisma.post.findUnique({
         where: {
             id: 5,
@@ -179,7 +179,7 @@ async function seeds() {
     await createPost()
     await createPosts()
     await updatePost()
-    await findPost()
+    await getPostById()
     await findPosts()
     await deletePost()
     await createComment()

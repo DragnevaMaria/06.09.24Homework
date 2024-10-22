@@ -27,7 +27,6 @@ const posts = [
     }
 ]
 
-
 // Функция для получения всех постов и  
 function getAllPosts(max: number) {
     const context = {

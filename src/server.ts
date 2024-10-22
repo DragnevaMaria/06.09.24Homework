@@ -8,7 +8,7 @@ import express, { Express, Request, Response } from 'express'
 // const path = require('path')
 import path from "path"
 // const postRouter = require('./routers/postRouter')
-import postRouter from './routers/postRouter'
+import postRouter from './ProductApp/productRouter'
 
 // const app = express()
 const app: Express = express()

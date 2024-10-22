@@ -5,7 +5,7 @@ import express from 'express'
 const router = express.Router()
 // Подключаем контроллер, который обрабатывает запросы
 // const postController = require('../controllers/postController')
-import postController from '../controllers/postController'
+import postController from './postController'
 
 
 // Путь для получения всех постов
