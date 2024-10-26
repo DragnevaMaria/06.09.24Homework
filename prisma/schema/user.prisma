@@ -1,11 +1,10 @@
 
-model Post {
+model User {
   id       Int      @id @default(autoincrement())
   name     String
   message  String
   time     String
   author   String
+  posts    Post[]  
   comments Comment[]  
-  usertId  Int
-  users    User    @relation(fields: [usertId], references: [id]) 
 }

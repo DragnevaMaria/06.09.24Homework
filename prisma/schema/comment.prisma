@@ -5,5 +5,9 @@ model Comment {
   message  String
   imageUrl String?   // Опциональное поле для картинки
   postId   Int
-  post     Post    @relation(fields: [postId], references: [id]) // Связь с постом
+  post     Post    @relation(fields: [postId], references: [id])
+  usertId  Int
+  users    User    @relation(fields: [usertId], references: [id]) 
 }
+
+

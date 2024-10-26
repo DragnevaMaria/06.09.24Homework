@@ -1,4 +1,3 @@
-
 // npm run start
 
 // const moment = require("moment")
@@ -8,7 +7,9 @@ import express, { Express, Request, Response } from 'express'
 // const path = require('path')
 import path from "path"
 // const postRouter = require('./routers/postRouter')
-import postRouter from './ProductApp/productRouter'
+import postRouter from './PostApp/postRouter'
+import userRouter from './UserApp/userRouter'
+import cookieParser from 'cookie-parser';
 
 // const app = express()
 const app: Express = express()
@@ -18,14 +19,17 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'templates'))
 
 app.use(express.json()) 
+app.use(cookieParser())
 app.use('/static/', express.static(path.join(__dirname, 'static'))) 
 app.use('/post/', postRouter)
+app.use('/', userRouter)
 
 function getCurrentDay(){
     return moment().format('MMMM Do YYYY, h:mm:ss a');
 }
 
 app.get('/', (req: Request, res: Response) => {
+    res.redirect('/login');
     const context = {
             title: 'Document',
             heading: 'заголовок',
