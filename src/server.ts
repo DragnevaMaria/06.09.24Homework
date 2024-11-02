@@ -29,7 +29,7 @@ function getCurrentDay(){
 }
 
 app.get('/', (req: Request, res: Response) => {
-    res.redirect('/login');
+    // res.redirect('/login');
     const context = {
             title: 'Document',
             heading: 'заголовок',

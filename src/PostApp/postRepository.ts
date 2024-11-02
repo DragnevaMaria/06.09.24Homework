@@ -2,6 +2,7 @@
 import {Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
 
+
 // Получение всех постов
 async function getAllPosts(){
     try{
@@ -99,11 +100,12 @@ async function createPost(data: Prisma.PostCreateInput){
 }
 
 // Создание множества постов
-async function createPosts(data: Prisma.PostCreateInput){
+async function createPosts(data: Prisma.PostCreateManyInput[]){
     try{
         let posts = await client.post.createMany({
             data: data
         })
+        return posts
     } catch(err){
         if (err instanceof Prisma.PrismaClientKnownRequestError){
             if (err.code == 'P2002'){
@@ -131,6 +133,7 @@ async function updatePost(id: number) {
                 name: 'Updated post'
             }
         })
+        return post
     } catch(err){
         if (err instanceof Prisma.PrismaClientKnownRequestError){
             if (err.code == 'P2002'){
@@ -154,6 +157,7 @@ async function deletePost() {try{
             id: 5
         }
     })
+    return post
     } catch(err){
         if (err instanceof Prisma.PrismaClientKnownRequestError){
             if (err.code == 'P2002'){
