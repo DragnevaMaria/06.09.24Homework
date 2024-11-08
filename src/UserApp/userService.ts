@@ -43,6 +43,11 @@ async function authLogin(password:string, email: string): Promise<IAuthLoginOk |
   }
 
   console.log(user)
+  // typeof выводит тип переменной user в консоль 
+  // typeof полезен в асинхронных функциях, чтобы убедиться, 
+  // что возвращается корректный тип данных перед выполнением 
+  // дальнейших действий
+  // Убедиться, что user не undefined или null
   console.log(typeof user)
   // return {
   //   status: "ok",

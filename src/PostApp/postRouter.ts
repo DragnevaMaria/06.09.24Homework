@@ -1,12 +1,15 @@
 
+// Подключаем контроллер, который обрабатывает запросы
+// const postController = require('../controllers/postController')
+import postController from './postController'
+import { authMiddleware } from "../middlewares/authMiddlewares"
 // Подключаем библиотеку express 
 import express from 'express'
 // Подключаем библиотеку для создания роутеров
 const router = express.Router()
-// Подключаем контроллер, который обрабатывает запросы
-// const postController = require('../controllers/postController')
-import postController from './postController'
 
+router.use(authMiddleware)
+// Запрос от клиента -> middleware,  -> handler(next)
 
 // Путь для получения всех постов
 router.get('/all', postController.getAllPosts)

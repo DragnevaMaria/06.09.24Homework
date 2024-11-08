@@ -1,5 +1,11 @@
-// Массив который храненит посты
+// Массив который храненит постыты
+import postRepository from "./postRepository"
 
+// const posts:{
+//     name:string,
+//     time:string,
+//     author:string,
+//     message:string}[]
 const posts = [
     {
         name: 'Post 0',
@@ -27,6 +33,13 @@ const posts = [
     }
 ]
 
+type Postdata = {
+    name:string,
+    time:string,
+    author:string,
+    message:string
+}
+
 // Функция для получения всех постов и  
 function getAllPosts(max: number) {
     const context = {
@@ -41,6 +54,7 @@ function getAllPosts(max: number) {
 
 // Функция для получения пост по id
 function getPostById(id: number){
+    console.log(id)
     const context = {
         title: 'Document',
         post: posts[id-1]
@@ -52,9 +66,18 @@ function getPostById(id: number){
 }
 
 // Функция для добавления нового поста в массив
-function createPost(postdata: { name: string; message: string; time: string; author: string }) {
+// function createPost(postdata: {
+//     id:Number,
+//     name:string,
+//     time:string,
+//     author:string,
+//     message:string}) {
+//     posts.push(postdata)
+// }
+function createPost(postdata: Postdata) {
     posts.push(postdata)
 }
+
 
 // Эти строки позволяет файлам импортировать эти три функции
 const postService  = {

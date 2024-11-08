@@ -1,12 +1,12 @@
 
-import {Prisma, PrismaClient } from '@prisma/client';
-import client from '../client/prismaClient';
+import {Prisma, PrismaClient } from '@prisma/client' 
+import { client } from "../client/prismaClient"
 
 
 // Получение всех постов
 async function getAllPosts(){
     try{
-        let posts = await client.post.findMany({
+        const posts = await client.post.findMany({
 
         })
         return posts
@@ -29,7 +29,7 @@ async function getAllPosts(){
 // Получение одного поста
 async function getPostById(id: number) {
     try{
-        let post = await client.post.findUnique({
+        const post = await client.post.findUnique({
             where: {
                 id: id
             }
@@ -54,7 +54,7 @@ async function getPostById(id: number) {
 // Получение всех постов по id
 async function getAllPostsById(id: number){
     try{
-        let post = await client.post.findUnique({
+        const post = await client.post.findUnique({
             where:{
                 id: id
             }
@@ -79,7 +79,7 @@ async function getAllPostsById(id: number){
 // Создание одного поста
 async function createPost(data: Prisma.PostCreateInput){
     try{
-        let post = await client.post.create({
+        const post = await client.post.create({
             data: data
         })
         return post
@@ -102,7 +102,7 @@ async function createPost(data: Prisma.PostCreateInput){
 // Создание множества постов
 async function createPosts(data: Prisma.PostCreateManyInput[]){
     try{
-        let posts = await client.post.createMany({
+        const posts = await client.post.createMany({
             data: data
         })
         return posts
@@ -125,7 +125,7 @@ async function createPosts(data: Prisma.PostCreateManyInput[]){
 // Обновления данных одного поста
 async function updatePost(id: number) {
     try{
-        let post = await client.post.update({
+        const post = await client.post.update({
             where: {
                 id: id
             },
@@ -151,10 +151,11 @@ async function updatePost(id: number) {
 }
 
 // Удаление одного поста
-async function deletePost() {try{
-    let post = await client.post.delete({
-        where: {
-            id: 5
+async function deletePost() {
+    try{
+        const post = await client.post.delete({
+            where: {
+                id: 5
         }
     })
     return post

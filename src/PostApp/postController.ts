@@ -6,13 +6,19 @@ import { Request, Response } from 'express'
 import postService from './postService'
 
 // Запрос на получение всех постов
-function getAllPosts(req: Request, res: Response): void{
-    const context = postService.getAllPosts(Number(req.query.max))
-    res.render('posts', context)
+async function getAllPosts(req: Request, res: Response){
+    const context = await postService.getAllPosts(Number(req.query.max))
+    res.render('posts', {posts: context.posts, username: res.locals.user.username})
+    // res.render('posts', context)
+    console.log(res.locals.user)
 }
 
+// : void говорит, что эта функция не возвращает никакого значения 
+// завершится без использования оператора return
+// function getPostById(req: Request, res: Response): void{
+
 // Запрос на получение конкретного поста по его id
-function getPostById(req: Request, res: Response): void{
+function getPostById(req: Request, res: Response){
     console.log(req.params.id)
     const id = Number (req.params.id)
     const data = postService.getPostById(id)
@@ -27,18 +33,19 @@ function getPostById(req: Request, res: Response): void{
 }
 
 // Запрос на создание нового поста
-function createPost(req: Request, res: Response): void{
-    const postdata = req.body as {
-        name: string;
-        message: string;
-        time: string;
-        author: string;
-    }
+function createPost(req: Request, res: Response){
+    // const postdata = req.body as {
+    //     name: string;
+    //     message: string;
+    //     time: string;
+    //     author: string;
+    // }
+    const postdata = req.body
     console.log(postdata)
     postService.createPost(postdata)
-    res.send(`
-        <p>все хорошо</p>
-    `)
+    res.send('okay')
+    // const postmessage = postService.createPost(postdata)
+    // res.send(postmessage)
 }
 
 // Эти строки позволяет файлам импортировать эти три функции
