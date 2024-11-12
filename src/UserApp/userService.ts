@@ -1,6 +1,19 @@
 import userRepository from "./userRepository"
-// type email = 
 
+// type для всего
+// type NazvanieTipa = number | string
+// type HoroshiyStatus = 'success' | 'super error'
+// type User = {name: string, id: number, status: HoroshiyStatus} 
+
+// interface IUser{
+//     name: string
+//     id: number
+//     status: HoroshiyStatus
+// }
+
+// let count: NazvanieTipa = 'stroka'
+
+// interface типизация для обектов (обект ответа) и классов
 interface IAuthLoginOk{
   status:"ok",
   user: {
@@ -59,29 +72,30 @@ async function authLogin(password:string, email: string): Promise<IAuthLoginOk |
   // }
   return {status : "ok" , user: user}
 }
+ 
+interface IRegisterUser {
+  username: string,
+  password: string,
+  email: string,
+  role: "user" 
+}
 
-async function authRegist(username: string, email: string, password: string): Promise<IAuthRegistOk | IAuthRegistError> {
+async function authRegist(data: IRegisterUser): Promise<IAuthRegistOk | IAuthRegistError> {
   // Проверяем, существует ли пользователь с таким email
-  const user = await userRepository.findUserByEmail(email)
+  const user = await userRepository.findUserByEmail(data.email)
   // Проверка, есть ли пользователь с таким email
   if (user) {
       return { status: "error", message: "user found(exists)"}
   }
   // Если пользователь не существует, создаём нового пользователя
-  const newUserData = {
-      username,
-      email,
-      password, // пока нету хэширования
-      role: "user" 
-  };
-  // Создаем нового пользователя
   // const newUser = await userRepository.createUser({ username, email, password, role: "user" })
-  const newUser = await userRepository.createUser(newUserData)
+  const newUser = await userRepository.createUser(data)
   // Проверка, что новый пользователь успешно создан
   if (!newUser) {
     return { status: "error", message: "Failed to create user"}
   }
   // Возвращаем нового пользователя без пароля, но с ролью
+  // return {status: "ok", user: newUser}
   return {
     status: "ok",
     user: {

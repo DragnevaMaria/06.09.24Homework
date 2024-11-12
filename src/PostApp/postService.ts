@@ -1,5 +1,4 @@
-// Массив который храненит постыты
-import postRepository from "./postRepository"
+
 
 // const posts:{
 //     name:string,
